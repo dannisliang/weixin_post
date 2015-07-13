@@ -1,0 +1,30 @@
+<% if n.present? %>
+  <% if n.is_a?(Post) %>
+  <nav class="post-list--page-nav clearfix">
+    <% if params[:page].to_i > 1 %>
+      <button class="button-circle post-list--page-prev">
+        <span class="button-arrow-left prev-page-arrow"></span>
+      </button>
+    <% end %>
+    <% if n.present? %>
+      <button class="button-capsule post-list--page-next">
+        <span class="button-label next-page-label">下一页</span><span class="button-arrow-right next-page-arrow"></span>
+      </button>
+    <% end %>
+  </nav>
+  <% else %>
+  <nav class="feed-list--page-nav clearfix">
+      <% if params[:page].to_i > 1 %>
+        <button class="button-circle feed-list--page-prev">
+          <span class="button-arrow-left prev-page-arrow"></span>
+        </button>
+      <% end %>
+      <% if @next_blog.present? %>
+        <button class="button-capsule feed-list--page-next">
+          <span class="button-label next-page-label">下一页</span><span class="button-arrow-right next-page-arrow"></span>
+        </button>
+      <% end %>
+      </nav>
+  <% end %>
+<% end %>
+

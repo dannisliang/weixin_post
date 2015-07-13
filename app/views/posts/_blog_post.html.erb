@@ -1,0 +1,28 @@
+<li class="post-list-item">
+  <div class="post-digest <%= post.image.present? ? 'digest-with-thumb' : 'digest-without-thumb' %> clearfix">
+    <% if post.image.present? %>
+    <figure class="post-digest--thumb">
+      <!-- <a class="lazyload" href="<%= post_s_path(post.guid)%>" data-original="<%= post.image.url %>" style="background-image: url(<%= post.image.url %>);"></a> -->
+      <%= link_to_by_type(post,"",post_s_path(post.guid),class: "lazyload", data:{original:"#{post.image.url}"},style:"background-image: url(#{ post.image.url })")%>
+    </figure>
+    <% end %>
+    <h1 class="post-digest--h1">
+    </h1>
+    <p class="post-digest--excerpt">
+    </p>
+    <p class="post-digest--meta">
+      <a href="<%= blog_path(post.blog) %>" class="post-digest--feed-name"><%= post.blog.name %></a>
+      <span class="vert-line"> | </span>
+      <span class="post-digest--timestamp"><%= post.last_pase_time.strftime("%Y-%m-%d") %></span>
+      <span class="post-digest--action-list">
+
+        <button class="button-icon post-digest--action-fav" title="收藏" data-guid="<%= post.guid %>">
+          <span class="minerva-glyphs icon-fav"></span>
+        </button>
+
+          <span class="minerva-glyphs icon-sinaweibo"></span>
+        </button>
+      </span>
+    </p>
+  </div>
+</li>

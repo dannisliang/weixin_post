@@ -1,0 +1,81 @@
+<% content_for :title, "我订阅的专栏/连载" %>
+<% content_for :keywords, "大眼 博客 专栏 连载 原创"  %>
+<% content_for :description, "大眼，订阅精彩原创专栏连载"  %>
+
+<main class="reading-list-container sticky-footer--main-wrap clearfix">
+  <nav class="nav-side">
+    <span class="nav-side--active-indicator"></span>
+    <ul class="reading-list-nav">
+      <li class="reading-list-nav-item">
+        <%= link_to '我的订阅' %>
+      </li>
+      <li class="reading-list-nav-item">
+        <%= link_to '我的收藏' %>
+      </li>
+      <li class="reading-list-nav-item">
+        <%= link_to '编辑推荐' %>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="reading-list clearfix">
+    <ol class="post-list chinese-punct" lang="en">
+      <%= render partial: 'blog_post', collection: @posts, as: :post %>
+    </ol>
+    <%= render partial: 'page_nav', locals: {n: @next_post} %>
+  </div>
+</main>
+
+<%= render partial: 'page_js' %>
+
+<script type="text/javascript">
+  $(function(){
+    $('.reading-list-nav-item').click(function() {
+      var offset;
+      var posOrigin = $('.reading-list-nav-item--active').offset();
+      var posThis   = $(this).offset();
+      $('.reading-list-nav-item--active').removeClass('reading-list-nav-item--active');
+      $(this).addClass('reading-list-nav-item--active');
+      if($(window).width() > 1023){
+        offset = posThis.top - posOrigin.top;
+      }else{
+        offset = posThis.left - posOrigin.left;
+      }      
+      $('.nav-side--active-indicator').css({
+            '-webkit-transform': 'translate3d(0, ' + offset + 'px, 0)',
+               '-moz-transform': 'translate3d(0, ' + offset + 'px, 0)',
+                    'transform': 'translate3d(0, ' + offset + 'px, 0)'
+      });
+    });
+
+    resize_reading_list_nav();
+    
+    $(window).resize(function() {
+        resize_reading_list_nav();
+    });
+
+  });
+
+  function resize_reading_list_nav(animator){
+    if($(window).width() > 1023) {
+      var posOrigin = $('.reading-list-nav').offset();
+      var posActive = $('.reading-list-nav-item--active').offset();
+      var offset = posActive.top - posOrigin.top;
+      $('.nav-side--active-indicator').css({'top': offset + 'px'});
+
+    }
+    
+    else {
+      var posOrigin = $('.reading-list-nav').offset();
+      var posActive = $('.reading-list-nav-item--active').offset();
+      var offset = posActive.left - posOrigin.left;
+      $('.nav-side--active-indicator').css({
+        '-webkit-transform': 'translate3d(' + offset + 'px, 0, 0)',
+           '-moz-transform': 'translate3d(' + offset + 'px, 0, 0)',
+                'transform': 'translate3d(' + offset + 'px, 0, 0)'
+      });
+    }
+  }
+</script>
+
+
